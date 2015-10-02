@@ -21,6 +21,11 @@ onload = function() {
   //   navigateTo('http://www.google.com/');
   // };
 
+  document.querySelector('#choose-test').onclick = function() {
+    navigateTo('http://ksdtech.github.io/KSD-Test-Browser/');
+  };
+
+
   document.querySelector('#reload').onclick = function() {
     if (isLoading) {
       webview.stop();
@@ -36,43 +41,49 @@ onload = function() {
       }
     });
 
+  // Start by loading up the Test Selection landing page.
+  navigateTo('http://ksdtech.github.io/KSD-Test-Browser/');
+
+
   // document.querySelector('#terminate').onclick = function() {
   //   webview.terminate();
   // };
 
-  // Start by showing the Test Choosing dialog.
-  document.querySelector('#choose-test-overlay').style.display = '-webkit-box';
-  document.querySelector('#choose-test-confirm').style.display = '-webkit-box';
-  // Disable the cancel button as well.
-  document.querySelector('#choose-test-cancel').setAttribute("disabled", "disabled");
 
-  var showChooseTestDiag= function() {
-    document.querySelector('#choose-test-overlay').style.display = '-webkit-box';
-    document.querySelector('#choose-test-confirm').style.display = '-webkit-box';
-    document.querySelector('#choose-test-cancel').removeAttribute("disabled");
-  };
+  // Uncomment for built-in test choosing.
+  // // Start by showing the Test Choosing dialog.
+  // document.querySelector('#choose-test-overlay').style.display = '-webkit-box';
+  // document.querySelector('#choose-test-confirm').style.display = '-webkit-box';
+  // // Disable the cancel button as well.
+  // document.querySelector('#choose-test-cancel').setAttribute("disabled", "disabled");
 
-  var hideChooseTestDiag = function() {
-    document.querySelector('#choose-test-overlay').style.display = 'none';
-    document.querySelector('#choose-test-confirm').style.display = 'none';
-  };
+  // var showChooseTestDiag= function() {
+  //   document.querySelector('#choose-test-overlay').style.display = '-webkit-box';
+  //   document.querySelector('#choose-test-confirm').style.display = '-webkit-box';
+  //   document.querySelector('#choose-test-cancel').removeAttribute("disabled");
+  // };
 
-  document.querySelector('#choose-test').onclick = showChooseTestDiag;
+  // var hideChooseTestDiag = function() {
+  //   document.querySelector('#choose-test-overlay').style.display = 'none';
+  //   document.querySelector('#choose-test-confirm').style.display = 'none';
+  // };
 
-  document.querySelector('#choose-test-cancel').onclick = hideChooseTestDiag;
+  // document.querySelector('#choose-test').onclick = showChooseTestDiag;
 
-  var testList = document.querySelector('#choose-test-confirm').querySelectorAll('a');
-  for (elem in testList) {
-    testList[elem].onclick = function(e) {
-      e.preventDefault();
-      hideChooseTestDiag();
-      var t = this;
-      clearAllData(function() {
-        navigateTo(t.getAttribute('href'));
-      });
-      // navigateTo(this.getAttribute('href'));
-    }
-  }
+  // document.querySelector('#choose-test-cancel').onclick = hideChooseTestDiag;
+
+  // var testList = document.querySelector('#choose-test-confirm').querySelectorAll('a');
+  // for (elem in testList) {
+  //   testList[elem].onclick = function(e) {
+  //     e.preventDefault();
+  //     hideChooseTestDiag();
+  //     var t = this;
+  //     clearAllData(function() {
+  //       navigateTo(t.getAttribute('href'));
+  //     });
+  //     // navigateTo(this.getAttribute('href'));
+  //   }
+  // }
 
   // document.querySelector('#location-form').onsubmit = function(e) {
   //   e.preventDefault();
