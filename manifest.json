@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "KSD Test Browser",
+  "minimum_chrome_version": "24.0.1307.0",
+  "version": "0.1",
+  "icons": {
+    "16": "icon_16.png",
+    "128": "icon_128.png"
+  },
+  "app": {
+    "background": {
+      "scripts": ["main.js"]
+    }
+  },
+  "permissions": [
+    "webview"
+  ],
+  "offline_enabled": false
+}
