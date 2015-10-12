@@ -1,12 +1,17 @@
 # KSD-Test-Browser
 A Chrome App for test-taking in kiosk mode on a Chromebook.
 
-Here are the instructions for publishing the app to the Chrome Web Store:
-https://developer.chrome.com/webstore/publish
+# Publishing to the Chrome Web Store
 
-This was derived from the official Chrome App Sample for the Webview Tag.
+Here are the instructions for publishing the app to the Chrome Web Store:
+	https://developer.chrome.com/webstore/publish
+
+In a nutshell, you zip up the project directory (KSD-Test-Browser), then go to the Chrome Web Store Developer Dashboard (https://chrome.google.com/webstore/developer/dashboard/), click Edit for the appropriate project, then Uploaded Updated Package. Finally, remember to click Publish Changes.
+
+Visibility options should be set to Unlisted.
 
 # Original README:
+(This project was derived from the official Chrome App Sample for the Webview Tag. Here is the original READEME from that project)
 
 Sample that shows how to use the [webview tag](http://developer.chrome.com/apps/app_external.html#webview)
 in an app to create a mini browser.
