@@ -17,6 +17,12 @@ onload = function() {
     webview.forward();
   };
 
+  document.querySelector('#exit').onclick = function() {
+    chrome.app.window.getAll().forEach(function(win) {
+      win.close();
+    });
+  };
+
   // document.querySelector('#home').onclick = function() {
   //   navigateTo('http://www.google.com/');
   // };

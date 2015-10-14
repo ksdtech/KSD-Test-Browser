@@ -63,6 +63,14 @@ compared to the back/forward buttons */
   font-size: 18px;
 }
 
+#controls .padding {
+  width: 100%;
+}
+
+#controls #choose-test {
+ min-width: 8em;
+}
+
 #location {
   border: solid 1px #ccc;
   padding: 2px;
