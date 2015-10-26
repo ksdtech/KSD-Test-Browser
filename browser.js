@@ -5,6 +5,19 @@ onload = function() {
   var webview = document.querySelector('webview');
   doLayout();
 
+  webview.addEventListener('newwindow', function(e) {
+    console.log(e);
+    console.log(e.targetUrl);
+    console.log(e.name);
+    console.log(e.windowOpenDisposition);
+    navigateTo(e.targetUrl);
+
+    // var newWebview = document.createElement('webview');
+    // document.body.appendChild(newWebview);
+    // e.window.attach(newWebview);
+  });
+
+
   var vers = getChromeVersion();
   var majorVersion = vers['majorVersion'];
   var buildVersion = vers['buildVersion'];
