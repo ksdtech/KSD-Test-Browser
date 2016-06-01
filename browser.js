@@ -7,8 +7,6 @@ var browser = (function(configModule, tabsModule) {
     forward,
     home,
     reload,
-    // locationForm,
-    // locationBar,
     tabContainer,
     contentContainer,
     newTabElement) {
@@ -17,8 +15,6 @@ var browser = (function(configModule, tabsModule) {
     this.forward = forward;
     this.reload = reload;
     this.home = home;
-    // this.locationForm = locationForm;
-    // this.locationBar = locationBar;
     this.tabContainer = tabContainer;
     this.contentContainer = contentContainer;
     this.newTabElement = newTabElement;
@@ -71,11 +67,6 @@ var browser = (function(configModule, tabsModule) {
           }
         }
       );
-
-      // browser.locationForm.addEventListener('submit', function(e) {
-      //   e.preventDefault();
-      //   browser.tabs.getSelected().navigateTo(browser.locationBar.value);
-      // });
 
       browser.newTabElement.addEventListener(
         'click',
@@ -163,7 +154,6 @@ var browser = (function(configModule, tabsModule) {
   Browser.prototype.doTabNavigating = function(tab, url) {
     if (tab.selected) {
       document.body.classList.add('loading');
-      // this.locationBar.value = url;
     }
   };
 
@@ -183,9 +173,6 @@ var browser = (function(configModule, tabsModule) {
     var selectedWebview = selectedTab.getWebview();
     this.back.disabled = !selectedWebview.canGoBack();
     this.forward.disabled = !selectedWebview.canGoForward();
-    // if (this.locationBar.value != selectedTab.url) {
-    //   this.locationBar.value = selectedTab.url;
-    // }
   };
 
   return {'Browser': Browser};
