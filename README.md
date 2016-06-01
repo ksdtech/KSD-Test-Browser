@@ -34,7 +34,7 @@ that identify a different window open a new window.
 ## Publishing to the Chrome Web Store
 
 Here are the instructions for publishing the app to the Chrome Web Store:
-* [[Publish in the Chrome Web Store](https://developer.chrome.com/webstore/publish)
+* [Publish in the Chrome Web Store](https://developer.chrome.com/webstore/publish)
 
 In a nutshell, you zip up the project directory (KSD-Test-Browser), then go to the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/developer/dashboard/), click Edit for the appropriate project, then Uploaded Updated Package. Finally, remember to click Publish Changes.
 
