@@ -1,6 +1,7 @@
 body {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
   font-family: Lucida Grande, Arial, sans-serif;
 }
 
@@ -9,10 +10,24 @@ input {
   outline: none;
 }
 
+div {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+#content-container {
+  display: inline-block;
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
 #controls {
-  padding: 3px;
-  border-bottom: solid 1px #ccc;
+  padding: 0px;
   background-color: #eee;
+  border-bottom: solid 1px #ccc;
 }
 
 #controls button,
@@ -23,16 +38,24 @@ input {
   padding: 0 6px;
 }
 
+#controls button#reload {
+  border-radius: 16px;
+}
+
+#tab-controls {
+  padding: 3px 3px 0px 3px;
+  background: #888;
+}
+
+#browser-controls {
+  padding: 3px;
+}
+
 button,
 input[type="submit"],
 button[disabled]:hover {
   border: solid 1px transparent;
   background: transparent;
-}
-
-#choose-test-cancel {
-  border-color: #ccc;
-  background: -webkit-linear-gradient(bottom, #cccccc 0%, #f2f2f2 99%);
 }
 
 button:hover,
@@ -49,26 +72,12 @@ input[type="submit"]:active {
 
 /* These glyphs are on the small side, make them look more natural when
 compared to the back/forward buttons */
-#controls #home,
-#controls #terminate {
+#controls #home {
   font-size: 24px;
 }
 
 #controls #reload {
   font-size: 20px;
-}
-
-#controls #zoom,
-#controls #find {
-  font-size: 18px;
-}
-
-#controls .padding {
-  width: 100%;
-}
-
-#controls #choose-test {
- min-width: 8em;
 }
 
 #location {
@@ -78,99 +87,85 @@ compared to the back/forward buttons */
   -webkit-box-sizing: border-box;
 }
 
-#controls {
+#browser-controls {
   display: -webkit-flex;
   -webit-flex-direction: column;
 }
 
-#controls #location-form {
+/*
+#browser-controls #location-form {
   -webkit-flex: 1;
   display: -webkit-flex;
   -webit-flex-direction: column;
 }
+*/
 
-#controls #center-column {
+#browser-controls #center-column {
   -webkit-flex: 1;
 }
 
-.overlay {
-  -webkit-box-align: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: center;
-  -webkit-perspective: 1px;
-  -webkit-transition: 200ms opacity;
-  background-color: rgba(255, 255, 255, 0.75);
-  bottom: 0;
-  display: none;
-  left: 0;
-  overflow: auto;
-  padding: 20px;
-  position: fixed;
-  right: 0;
-  top: 0;
-}
-
-#choose-test-overlay {
-  z-index: 3;
-}
-
-#choose-test-confirm {
-  -webkit-box-orient: vertical;
-  background-clip: border-box;
-  background-color: rgb(255, 255, 255);
-  background-image: none;
-  background-origin: padding-box;
-  background-size: auto;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 23px 5px, rgba(0, 0, 0, 0.14902) 0px 2px 6px 0px;
-  color: rgb(51, 51, 51);
-  display: none;
-  min-width: 400px;
-  padding-bottom: 0px;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-top: 0px;
-  transition-delay: 0s;
-  transition-duration: 0.2s;
-  transition-property: -webkit-transform;
-  transition-timing-function: ease;
-  width: 500px;
-  z-index: 0;
-  display: none;
-  position: fixed;
-  top: 25%;
-  left: 50%;
-  width: 400px;
-  margin-left: -200px;
-  padding: 16px;
-  background-color: white;
-  z-index: 4;
-  overflow: auto;
-}
-
-#choose-test-confirm li {
-  list-style-type: none;
-  margin-bottom: 5px;
-}
-
-#choose-test-confirm h3 {
-  margin: .25em;
-}
-
-#sad-webview,
-webview {
+webview,
+.webview-container {
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
   position: absolute;
-  bottom: 0;
-  left: 0;
+  top: 0px;
+  left: 0px;
+  visibility: hidden;
+}
+
+.selected,
+#content-container .selected {
+  visibility: visible;
+}
+
+.webview-container ul {
+  position: relative;
+  text-align: right;
+  padding: 0px;
+  margin: 0px;
+  z-index: 2;
+  list-style-type: none;
+}
+
+.webview-container ul li {
+  padding: 3px;
+  background: #ff7;
+  border-bottom: solid 1px #aa6;
+}
+
+webview {
+  z-index: 1;
+}
+
+.popup-allow {
+  color: #0a0;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.popup-allow:hover {
+  color: #0f0;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.popup-deny {
+  color: #a00;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.popup-deny:hover {
+  color: #f00;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 /* The reload button turns into a spinning trobber */
 .loading #reload {
-  border: solid 1px transparent;
-  background: transparent;
   -webkit-animation: spinner-animation .5s infinite linear;
   -webkit-transform-origin: 50% 55.5%;
 }
@@ -180,47 +175,67 @@ webview {
   100% {-webkit-transform: rotate(360deg); }
 }
 
-/* Due to http://crbug.com/156219 we can't use display: none */
-#sad-webview,
-.exited webview {
-  visibility: hidden;
-  visibility: hidden;
+#tab-container {
+  margin: 5px 5px 0px 5px;
+  padding: 0px;
+  display: inline-block;
 }
 
-.exited #sad-webview {
-  visibility: visible;
-  background: #343f51;
-  text-align: center;
-  color: #fff;
+#tab-container li {
+  display: inline-block;
+  position: relative;
+  vertical-align: bottom;
+  width: 100px;
+  margin: 0px;
+  padding: 6px 16px 6px 6px;
+  border: 0px;
+  background: #ccc;
 }
 
-#sad-webview h2 {
-  font-size: 14px;
+#tab-container li:hover {
+  background: #ddd;
 }
 
-#sad-webview p {
-  font-size: 11px;
+#tab-container li.selected {
+  background: #eee;
 }
 
-#sad-webview-icon {
-  font-size: 96px;
-  margin-bottom: 10px;
+#tab-container li p {
+  width: 100px;
+  float:left;
+  z-index: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0px;
+  padding: 0px;
+  -webkit-margin-before: 0px;
+  -webkit-margin-after: 0px;
 }
 
-/* Variant of the crashed page when the process is intentionally killed (in that
-case we use a different background color and label). */
-.exited #sad-webview #killed-label {
-  display: none;
+#tab-container li a {
+  position: absolute;
+  right: 2px;
+  z-index: 2;
+  padding-left: 1px;
+  padding-right: 1px;
+  color: #666;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: default;
 }
 
-.killed #sad-webview {
-  background: #393058;
+#tab-container li a:hover {
+  color: #000;
 }
 
-.killed #sad-webview #killed-label {
-  display: block;
+#tab-container li#new-tab {
+  background: transparent;
+  vertical-align: baseline;
+  display: inline;
 }
 
-.killed #sad-webview #crashed-label {
-  display: none;
+#tab-container li#new-tab a {
+  font-size: 24px;
+  padding: 0px;
 }

@@ -2,46 +2,40 @@
 <html>
   <head>
     <link rel="stylesheet" href="browser.css">
+    <script src="config.js"></script>
+    <script src="popup.js"></script>
+    <script src="tabs.js"></script>
     <script src="browser.js"></script>
+    <script src="browser_main.js"></script>
+  </head>
   <body>
     <div id="controls">
 
-      <button id="back" title="Go Back">&#9664;</button>
-      <button id="forward" title="Go Forward">&#9654;</button>
-      <!-- <button id="home" title="Go Home">&#8962;</button> -->
-      <!-- <button id="home" title="Go Home">&#8861;</button> -->
-      <button id="reload" title="Reload">&#10227;</button>
-      <!-- <button id="terminate" title="Simulate Crash">&#9760;</button> -->
-      <!-- <button id="clear-data" title="Clear Data">&#9851;</button> -->
-      <button id="choose-test">Choose a Test</button>
-      <span class="padding">&nbsp;</span>
-      <button id="exit" title="Exit">Exit</button>
-
-
-    </div>
-
-<!-- Uncomment for built-in test selection. -->
-<!--     <div id="choose-test-overlay" class="overlay"></div>
-      <div id="choose-test-confirm">
-        <h2>Please choose a testing website:</h2>
-        <li>
-          <h3><a href="https://www.successnetplus.com">Pearson SuccessNet Plus</a></h3>
-        </li>
-        <br>
-
-        <button id="choose-test-cancel">Cancel</button>
+      <div id="tab-controls">
+        <ul id="tab-container">
+          <li id="new-tab"><a href="#new-tab">+</a></li>
+        </ul>
       </div>
-    </div>
- -->
-    <webview src="" style="width:640px; height:480px"></webview>
 
-    <div id="sad-webview">
-      <div id="sad-webview-icon">&#9762;</div>
-      <h2 id="crashed-label">Aw, Snap!</h2>
-      <h2 id="killed-label">He's Dead, Jim!</h2>
+      <div id="browser-controls">
+        <button id="back" title="Go Back">&#9664;</button>
+        <button id="forward" title="Go Forward">&#9654;</button>
+        <button id="home" title="Back to Test Chooser">Back to Test Chooser</button>
+        <button id="reload" title="Reload">&#10227;</button>
+        <!-- <button id="terminate" title="Simulate Crash">&#9760;</button> -->
 
-      <p>Something went wrong while displaying this webpage.
-      To continue, reload or go to another page.</p>
+<!--         <form id="location-form">
+          <div id="center-column">
+            <input id="location" type="text" value="">
+          </div>
+          <input type="submit" value="Go">
+        </form> -->
+      </div>
+
     </div>
+
+    <div id="content-container">
+    </div>
+
   </body>
 </html>

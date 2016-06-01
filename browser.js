@@ -1,246 +1,192 @@
-window.onresize = doLayout;
-var isLoading = false;
+var browser = (function(configModule, tabsModule) {
+  var dce = function(str) { return document.createElement(str); };
 
-onload = function() {
-  var webview = document.querySelector('webview');
-  doLayout();
+  var Browser = function(
+    controlsContainer,
+    back,
+    forward,
+    home,
+    reload,
+    // locationForm,
+    // locationBar,
+    tabContainer,
+    contentContainer,
+    newTabElement) {
+    this.controlsContainer = controlsContainer;
+    this.back = back;
+    this.forward = forward;
+    this.reload = reload;
+    this.home = home;
+    // this.locationForm = locationForm;
+    // this.locationBar = locationBar;
+    this.tabContainer = tabContainer;
+    this.contentContainer = contentContainer;
+    this.newTabElement = newTabElement;
+    this.tabs = new tabsModule.TabList(
+        'tabs',
+        this,
+        tabContainer,
+        contentContainer,
+        newTabElement);
 
-  webview.addEventListener('newwindow', function(e) {
-    console.log(e);
-    console.log(e.targetUrl);
-    console.log(e.name);
-    console.log(e.windowOpenDisposition);
-    navigateTo(e.targetUrl);
-
-    // var newWebview = document.createElement('webview');
-    // document.body.appendChild(newWebview);
-    // e.window.attach(newWebview);
-  });
-
-
-  var vers = getChromeVersion();
-  var majorVersion = vers['majorVersion'];
-  var buildVersion = vers['buildVersion'];
-
-  document.querySelector('#back').onclick = function() {
-    webview.back();
+    this.init();
   };
 
-  document.querySelector('#forward').onclick = function() {
-    webview.forward();
+  Browser.prototype.init = function() {
+    (function(browser) {
+      window.addEventListener('resize', function(e) {
+        browser.doLayout(e);
+      });
+
+      window.addEventListener('keydown', function(e) {
+        browser.doKeyDown(e);
+      });
+
+      browser.back.addEventListener('click', function(e) {
+        browser.tabs.getSelected().goBack();
+      });
+
+      browser.forward.addEventListener('click', function() {
+        browser.tabs.getSelected().goForward();
+      });
+
+      browser.home.addEventListener('click', function() {
+        browser.tabs.getSelected().navigateTo(configModule.homepage);
+      });
+
+      browser.reload.addEventListener('click', function() {
+        var tab = browser.tabs.getSelected();
+        if (tab.isLoading()) {
+          tab.stopNavigation();
+        } else {
+          tab.doReload();
+        }
+      });
+      browser.reload.addEventListener(
+        'webkitAnimationIteration',
+        function() {
+          // Between animation iterations: If loading is done, then stop spinning
+          if (!browser.tabs.getSelected().isLoading()) {
+            document.body.classList.remove('loading');
+          }
+        }
+      );
+
+      // browser.locationForm.addEventListener('submit', function(e) {
+      //   e.preventDefault();
+      //   browser.tabs.getSelected().navigateTo(browser.locationBar.value);
+      // });
+
+      browser.newTabElement.addEventListener(
+        'click',
+        function(e) { return browser.doNewTab(e); });
+
+      window.addEventListener('message', function(e) {
+        if (e.data) {
+          var data = JSON.parse(e.data);
+          if (data.name && data.title) {
+            browser.tabs.setLabelByName(data.name, data.title);
+          } else {
+            console.warn(
+                'Warning: Expected message from guest to contain {name, title}, but got:',
+                data);
+          }
+        } else {
+          console.warn('Warning: Message from guest contains no data');
+        }
+      });
+
+      var webview = dce('webview');
+      var tab = browser.tabs.append(webview);
+      // Global window.newWindowEvent may be injected by opener
+      if (window.newWindowEvent) {
+        window.newWindowEvent.window.attach(webview);
+      } else {
+        tab.navigateTo(configModule.homepage);
+      }
+      browser.tabs.selectTab(tab);
+    }(this));
   };
 
-  document.querySelector('#exit').onclick = function() {
-    chrome.app.window.getAll().forEach(function(win) {
-      win.close();
-    });
-  };
+  Browser.prototype.doLayout = function(e) {
+    var controlsHeight = this.controlsContainer.offsetHeight;
+    var windowWidth = document.documentElement.clientWidth;
+    var windowHeight = document.documentElement.clientHeight;
+    var contentWidth = windowWidth;
+    var contentHeight = windowHeight - controlsHeight;
 
-  // document.querySelector('#home').onclick = function() {
-  //   navigateTo('http://www.google.com/');
-  // };
+    var tab = this.tabs.getSelected();
+    var webview = tab.getWebview();
+    var webviewContainer = tab.getWebviewContainer();
 
-  document.querySelector('#choose-test').onclick = function() {
-    navigateTo('http://ksdtech.github.io/KSD-Test-Browser/');
-  };
-
-
-  document.querySelector('#reload').onclick = function() {
-    if (isLoading) {
-      webview.stop();
-    } else {
-      webview.reload();
+    var layoutElements = [
+      this.contentContainer,
+      webviewContainer,
+      webview];
+    for (var i = 0; i < layoutElements.length; ++i) {
+      layoutElements[i].style.width = contentWidth + 'px';
+      layoutElements[i].style.height = contentHeight + 'px';
     }
   };
-  document.querySelector('#reload').addEventListener(
-    'webkitAnimationIteration',
-    function() {
-      if (!isLoading) {
-        document.body.classList.remove('loading');
+
+  // New window that is NOT triggered by existing window
+  Browser.prototype.doNewTab = function(e) {
+    var tab = this.tabs.append(dce('webview'));
+    tab.navigateTo(configModule.homepage);
+    this.tabs.selectTab(tab);
+    return tab;
+  };
+
+  Browser.prototype.doKeyDown = function(e) {
+    if (e.ctrlKey) {
+      switch(e.keyCode) {
+        // Ctrl+T
+        case 84:
+        this.doNewTab();
+        break;
+        // Ctrl+W
+        case 87:
+        e.preventDefault();
+        this.tabs.removeTab(this.tabs.getSelected());
+        break;
       }
-    });
+      // Ctrl + [1-9]
+      if (e.keyCode >= 49 && e.keyCode <= 57) {
+        var idx = e.keyCode - 49;
+        if (idx < this.tabs.getNumTabs()) {
+          this.tabs.selectIdx(idx);
+        }
+      }
+    }
+  };
 
-  // Start by loading up the Test Selection landing page.
-  navigateTo('http://ksdtech.github.io/KSD-Test-Browser/');
+  Browser.prototype.doTabNavigating = function(tab, url) {
+    if (tab.selected) {
+      document.body.classList.add('loading');
+      // this.locationBar.value = url;
+    }
+  };
 
+  Browser.prototype.doTabNavigated = function(tab, url) {
+    this.updateControls();
+  };
 
-  // document.querySelector('#terminate').onclick = function() {
-  //   webview.terminate();
-  // };
+  Browser.prototype.doTabSwitch = function(oldTab, newTab) {
+    this.updateControls();
+  };
 
+  Browser.prototype.updateControls = function() {
+    var selectedTab = this.tabs.getSelected();
+    if (selectedTab.isLoading()) {
+      document.body.classList.add('loading');
+    }
+    var selectedWebview = selectedTab.getWebview();
+    this.back.disabled = !selectedWebview.canGoBack();
+    this.forward.disabled = !selectedWebview.canGoForward();
+    // if (this.locationBar.value != selectedTab.url) {
+    //   this.locationBar.value = selectedTab.url;
+    // }
+  };
 
-  // Uncomment for built-in test choosing.
-  // // Start by showing the Test Choosing dialog.
-  // document.querySelector('#choose-test-overlay').style.display = '-webkit-box';
-  // document.querySelector('#choose-test-confirm').style.display = '-webkit-box';
-  // // Disable the cancel button as well.
-  // document.querySelector('#choose-test-cancel').setAttribute("disabled", "disabled");
-
-  // var showChooseTestDiag= function() {
-  //   document.querySelector('#choose-test-overlay').style.display = '-webkit-box';
-  //   document.querySelector('#choose-test-confirm').style.display = '-webkit-box';
-  //   document.querySelector('#choose-test-cancel').removeAttribute("disabled");
-  // };
-
-  // var hideChooseTestDiag = function() {
-  //   document.querySelector('#choose-test-overlay').style.display = 'none';
-  //   document.querySelector('#choose-test-confirm').style.display = 'none';
-  // };
-
-  // document.querySelector('#choose-test').onclick = showChooseTestDiag;
-
-  // document.querySelector('#choose-test-cancel').onclick = hideChooseTestDiag;
-
-  // var testList = document.querySelector('#choose-test-confirm').querySelectorAll('a');
-  // for (elem in testList) {
-  //   testList[elem].onclick = function(e) {
-  //     e.preventDefault();
-  //     hideChooseTestDiag();
-  //     var t = this;
-  //     clearAllData(function() {
-  //       navigateTo(t.getAttribute('href'));
-  //     });
-  //     // navigateTo(this.getAttribute('href'));
-  //   }
-  // }
-
-  // document.querySelector('#location-form').onsubmit = function(e) {
-  //   e.preventDefault();
-  //   navigateTo(document.querySelector('#location').value);
-  // };
-
-  webview.addEventListener('exit', handleExit);
-  webview.addEventListener('loadstart', handleLoadStart);
-  webview.addEventListener('loadstop', handleLoadStop);
-  webview.addEventListener('loadabort', handleLoadAbort);
-  webview.addEventListener('loadredirect', handleLoadRedirect);
-  webview.addEventListener('loadcommit', handleLoadCommit);
-};
-
-function navigateTo(url) {
-  resetExitedState();
-  document.querySelector('webview').src = url;
-}
-
-function getChromeVersion() {
-  var version = navigator.appVersion.substr(navigator.appVersion.lastIndexOf('Chrome/') + 7);
-  var match = /([0-9]*)\.([0-9]*)\.([0-9]*)\.([0-9]*)/.exec(version);
-
-  return {
-    version: version,
-    majorVersion: parseInt(match[1]),
-    buildVersion: parseInt(match[3])
-  }
-}
-
-function clearAllData(callback) {
-  // Warning: this function doesn't seem to actually clear the cache right now.
-  var webview = document.querySelector('webview');
-
-  var clearDataType = {
-    appcache: true,
-    // cache: true,
-    cookies: true,
-    fileSystems: true,
-    indexedDB: true,
-    localStorage: true,
-    webSQL: true
-  }
-
-  var vers = getChromeVersion();
-  var majorVersion = vers['majorVersion'];
-  var buildVersion = vers['buildVersion'];
-  if (majorVersion >= 44 || (majorVersion == 43 && buildVersion >= 2350)) {
-    clearDataType['cache'] = true;
-  }
-
-  webview.clearData(
-    { since: 0 }, // Remove all browsing data.
-    clearDataType,
-    // function() { webview.reload(); });
-    // function() { return; });
-    callback());
-}
-
-function doLayout() {
-  var webview = document.querySelector('webview');
-  var controls = document.querySelector('#controls');
-  var controlsHeight = controls.offsetHeight;
-  var windowWidth = document.documentElement.clientWidth;
-  var windowHeight = document.documentElement.clientHeight;
-  var webviewWidth = windowWidth;
-  var webviewHeight = windowHeight - controlsHeight;
-
-  webview.style.width = webviewWidth + 'px';
-  webview.style.height = webviewHeight + 'px';
-
-  var sadWebview = document.querySelector('#sad-webview');
-  sadWebview.style.width = webviewWidth + 'px';
-  sadWebview.style.height = webviewHeight * 2/3 + 'px';
-  sadWebview.style.paddingTop = webviewHeight/3 + 'px';
-}
-
-function handleExit(event) {
-  console.log(event.type);
-  document.body.classList.add('exited');
-  if (event.type == 'abnormal') {
-    document.body.classList.add('crashed');
-  } else if (event.type == 'killed') {
-    document.body.classList.add('killed');
-  }
-}
-
-function resetExitedState() {
-  document.body.classList.remove('exited');
-  document.body.classList.remove('crashed');
-  document.body.classList.remove('killed');
-}
-
-function handleLoadCommit(event) {
-  resetExitedState();
-  if (!event.isTopLevel) {
-    return;
-  }
-
-  // document.querySelector('#location').value = event.url;
-
-  var webview = document.querySelector('webview');
-  document.querySelector('#back').disabled = !webview.canGoBack();
-  document.querySelector('#forward').disabled = !webview.canGoForward();
-  // closeBoxes();
-}
-
-function handleLoadStart(event) {
-  document.body.classList.add('loading');
-  isLoading = true;
-
-  resetExitedState();
-  if (!event.isTopLevel) {
-    return;
-  }
-
-  // document.querySelector('#location').value = event.url;
-}
-
-function handleLoadStop(event) {
-  // We don't remove the loading class immediately, instead we let the animation
-  // finish, so that the spinner doesn't jerkily reset back to the 0 position.
-  isLoading = false;
-}
-
-function handleLoadAbort(event) {
-  console.log('LoadAbort');
-  console.log('  url: ' + event.url);
-  console.log('  isTopLevel: ' + event.isTopLevel);
-  console.log('  type: ' + event.type);
-}
-
-function handleLoadRedirect(event) {
-  resetExitedState();
-  if (!event.isTopLevel) {
-    return;
-  }
-
-  // document.querySelector('#location').value = event.newUrl;
-}
-
+  return {'Browser': Browser};
+})(config, tabs);
