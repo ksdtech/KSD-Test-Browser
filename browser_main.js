@@ -10,6 +10,7 @@ var mainBrowser = null;
         query('#forward'),
         query('#home'),
         query('#reload'),
+        query('#exit'),
         query('#tab-container'),
         query('#content-container'),
         query('#new-tab'));

@@ -7,14 +7,16 @@ var browser = (function(configModule, tabsModule) {
     forward,
     home,
     reload,
+    exit,
     tabContainer,
     contentContainer,
     newTabElement) {
     this.controlsContainer = controlsContainer;
     this.back = back;
     this.forward = forward;
-    this.reload = reload;
     this.home = home;
+    this.reload = reload;
+    this.exit = exit;
     this.tabContainer = tabContainer;
     this.contentContainer = contentContainer;
     this.newTabElement = newTabElement;
@@ -48,6 +50,10 @@ var browser = (function(configModule, tabsModule) {
 
       browser.home.addEventListener('click', function() {
         browser.tabs.getSelected().navigateTo(configModule.homepage);
+      });
+
+      browser.exit.addEventListener('click', function() {
+        chrome.app.window.current().close();
       });
 
       browser.reload.addEventListener('click', function() {

@@ -42,6 +42,10 @@ div {
   border-radius: 16px;
 }
 
+#controls .padItOut {
+  width: 100%;
+}
+
 #tab-controls {
   padding: 3px 3px 0px 3px;
   background: #888;
@@ -73,11 +77,15 @@ input[type="submit"]:active {
 /* These glyphs are on the small side, make them look more natural when
 compared to the back/forward buttons */
 #controls #home {
-  font-size: 24px;
+  /*font-size: 24px;*/
+  width: 14em;
 }
 
 #controls #reload {
   font-size: 20px;
+}
+
+#controls #exit {
 }
 
 #location {
