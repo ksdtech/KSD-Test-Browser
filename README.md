@@ -1,7 +1,7 @@
 # KSD Test Browser
 A Chrome App for test-taking in kiosk mode on a Chromebook.
 
-This is based on the sample that shows how to use the [New Window
+This is heavily based on the code sample which shows how to use the [New Window
 API](https://developer.chrome.com/apps/tags/webview#event-newwindow) for
 [webviews](http://developer.chrome.com/apps/app_external.html#webview). 
 
