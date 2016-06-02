@@ -1,9 +1,9 @@
 # KSD Test Browser
 A Chrome App for test-taking in kiosk mode on a Chromebook.
 
-This is heavily based on the code sample which shows how to use the [New Window
-API](https://developer.chrome.com/apps/tags/webview#event-newwindow) for
-[webviews](http://developer.chrome.com/apps/app_external.html#webview). 
+This is heavily based on the [code sample](https://github.com/GoogleChrome/chrome-app-samples/tree/master/samples/webview-samples/new-window) 
+which shows how to use the [New Window API](https://developer.chrome.com/apps/tags/webview#event-newwindow) 
+for [webviews](http://developer.chrome.com/apps/app_external.html#webview). 
 
 Primary changes have involved paring down functionality to the bare minimum
 necessary to browse sites such as Pearson SuccessNet Plus.
@@ -15,7 +15,7 @@ a link opens a new tab in the background; Javascript calls to `window.open()`
 that identify a different window open a new window.
 
 
-## Features (Adapted from the original sample's README)
+## Features
 
 * Shortcut keys: `Ctrl + [1-9]` (select tab)
 * Popup confirmation: An attempt to open a separate window (not a separate
@@ -23,7 +23,7 @@ that identify a different window open a new window.
   screenshot for example of Allow/Deny dilaogue)
 
 
-## Limitations (Adapted from the original sample's README)
+## Limitations
 
 * Managing of named windows and setting of new window attributes is not
   supported. Attempting to open two links in a window named `foo` will not

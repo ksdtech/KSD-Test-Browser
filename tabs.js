@@ -275,21 +275,14 @@ var tabs = (function(popupModule) {
   };
 
   // New window triggered by existing window
+  // This new window will be opened as a new tab.
   Tab.prototype.doNewTab = function(e) {
     e.preventDefault();
 
-    var dis = e.windowOpenDisposition;
-
-    if (dis == 'new_background_tab' || dis == 'new_foreground_tab') {
-      var newWebview = dce('webview');
-      e.window.attach(newWebview);
-      var newTab = this.tabList.append(newWebview);
-      if (e.windowOpenDisposition == 'new_foreground_tab') {
-        this.tabList.selectTab(newTab);
-      }
-    } else {
-      this.popupConfirmBoxList.append(e);
-    }
+    var newWebview = dce('webview');
+    e.window.attach(newWebview);
+    var newTab = this.tabList.append(newWebview);
+    this.tabList.selectTab(newTab);
   };
 
   Tab.prototype.stopNavigation = function() {
