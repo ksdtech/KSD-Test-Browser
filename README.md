@@ -15,15 +15,15 @@ a link opens a new tab in the background; Javascript calls to `window.open()`
 that identify a different window open a new window.
 
 
-## Features
+## Features (Adapted from the original sample's README)
 
-* Shortcut keys: `Ctrl+t` (new tab), `Ctrl+W` (close tab), `Ctrl + [1-9]` (select tab)
+* Shortcut keys: `Ctrl + [1-9]` (select tab)
 * Popup confirmation: An attempt to open a separate window (not a separate
   tab in the same window) must be explicitly allowed by the user (see
   screenshot for example of Allow/Deny dilaogue)
 
 
-## Limitations
+## Limitations (Adapted from the original sample's README)
 
 * Managing of named windows and setting of new window attributes is not
   supported. Attempting to open two links in a window named `foo` will not

@@ -64,6 +64,7 @@ var browser = (function(configModule, tabsModule) {
           tab.doReload();
         }
       });
+      
       browser.reload.addEventListener(
         'webkitAnimationIteration',
         function() {
@@ -136,17 +137,17 @@ var browser = (function(configModule, tabsModule) {
 
   Browser.prototype.doKeyDown = function(e) {
     if (e.ctrlKey) {
-      switch(e.keyCode) {
-        // Ctrl+T
-        case 84:
-        this.doNewTab();
-        break;
-        // Ctrl+W
-        case 87:
-        e.preventDefault();
-        this.tabs.removeTab(this.tabs.getSelected());
-        break;
-      }
+      // switch(e.keyCode) {
+      //   // Ctrl+T
+      //   case 84:
+      //   this.doNewTab();
+      //   break;
+      //   // Ctrl+W
+      //   case 87:
+      //   e.preventDefault();
+      //   this.tabs.removeTab(this.tabs.getSelected());
+      //   break;
+      // }
       // Ctrl + [1-9]
       if (e.keyCode >= 49 && e.keyCode <= 57) {
         var idx = e.keyCode - 49;
