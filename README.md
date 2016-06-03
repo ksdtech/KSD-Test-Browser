@@ -2,21 +2,23 @@
 A Chrome App for test-taking in kiosk mode on a Chromebook.
 
 This is heavily based on the [code sample](https://github.com/GoogleChrome/chrome-app-samples/tree/master/samples/webview-samples/new-window) 
-which shows how to use the [New Window API](https://developer.chrome.com/apps/tags/webview#event-newwindow) 
+from Google which shows how to use the [New Window API](https://developer.chrome.com/apps/tags/webview#event-newwindow) 
 for [webviews](http://developer.chrome.com/apps/app_external.html#webview). 
 The license is inherited from that project.
 
-Primary changes have involved paring down functionality to the bare minimum
-necessary to browse sites such as Pearson SuccessNet Plus.
 
-The app behaves like a tabbed browser. When actions in we webview request a new
-tab or window, the browser responds appropriately. For example, clicking
-links with a foreign target opens a new tab in the foreground; ctrl+clicking
-a link opens a new tab in the background; Javascript calls to `window.open()`
-that identify a different window open a new window.
+## Test Browsing Features
+
+This project attempts to facilitate undistracted test-taking for students by creating a 
+browser with limited functionality, such as preventing navigation to arbitrary URLs.
+Some changes have also been made to improve operation on a Chromebook in Kiosk Mode, 
+including forcing all new windows to open as new tabs and the addition of an Exit button.
+
+Otherwise, the app should behave like an ordinary tabbed browser. When actions in a 
+webview request a new tab or window, the browser will respond by opening a new tab.
 
 
-## Features
+## Other Features
 
 * Shortcut keys: `Ctrl + [1-9]` (select tab)
 * Popup confirmation: An attempt to open a separate window (not a separate
