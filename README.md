@@ -4,6 +4,7 @@ A Chrome App for test-taking in kiosk mode on a Chromebook.
 This is heavily based on the [code sample](https://github.com/GoogleChrome/chrome-app-samples/tree/master/samples/webview-samples/new-window) 
 which shows how to use the [New Window API](https://developer.chrome.com/apps/tags/webview#event-newwindow) 
 for [webviews](http://developer.chrome.com/apps/app_external.html#webview). 
+The license is inherited from that project.
 
 Primary changes have involved paring down functionality to the bare minimum
 necessary to browse sites such as Pearson SuccessNet Plus.
