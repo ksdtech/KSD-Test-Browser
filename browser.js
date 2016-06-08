@@ -79,7 +79,7 @@ var browser = (function(configModule, tabsModule) {
 
       if (configModule.hideNewTabButton) {
         // Hide the New Tab button.
-        browser.newTabElement.className += browser.newTabElement.className ? ' hidden-controls' : 'hidden-controls';
+        browser.newTabElement.classList.add('hidden-controls')
       } else {
         browser.newTabElement.addEventListener('click', function(e) { 
           return browser.doNewTab(e); 

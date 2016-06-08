@@ -8,5 +8,5 @@ var config = {
     'acceptLinkClass': 'popup-allow',
     'denyLinkClass': 'popup-deny'
   },
-  'hideNewTabButton': false
+  'hideNewTabButton': true
 };

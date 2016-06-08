@@ -132,9 +132,9 @@ var tabs = (function(popupModule) {
   TabList.prototype.showOrHideTabCloser = function() {
     // If there is only one tab, hide the tab closing button.
     if (this.list.length == 1) {
-      this.list[0].closeLink.className = 'hidden-controls';
+      this.list[0].closeLink.classList.add('hidden-controls')
     } else {
-      this.list[0].closeLink.className = '';
+      this.list[0].closeLink.classList.remove('hidden-controls')
     }
   };
 
