@@ -22,7 +22,7 @@ webview request a new tab or window, the browser will respond by opening a new t
 
 The test browser is configured to load a curated list of tests at startup, when a new tab 
 is opened, and when the **Return to Test Chooser** button is clicked. This list is located 
-at [http://ksdtech.github.io/KSD-Test-Browser/][http://ksdtech.github.io/KSD-Test-Browser/], 
+at [http://ksdtech.github.io/KSD-Test-Browser/](http://ksdtech.github.io/KSD-Test-Browser/), 
 which is a github hosted page. 
 
 This page resides in the gh-pages branch of this repository, and can be edited there.
