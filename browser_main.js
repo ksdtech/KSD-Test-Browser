@@ -5,6 +5,7 @@ var mainBrowser = null;
 
   window.addEventListener('load', function(e) {
     mainBrowser = new browserModule.Browser(
+        query('#bg-title'),
         query('#controls'),
         query('#back'),
         query('#forward'),

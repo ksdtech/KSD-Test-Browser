@@ -46,7 +46,28 @@ div {
 
 #tab-controls {
   padding: 3px 3px 0px 3px;
-  background: #888;
+  background: repeating-linear-gradient( 45deg, #ff6600, #ff6600 10px, #FF7F2A 10px, #FF7F2A 20px );
+}
+
+#tab-controls button {
+  font-size: 1.5em;
+  margin-bottom: 2px;
+}
+
+#bg-title {
+    background-color: rgba(255, 255, 255, 0.32);
+    color: rgb(0, 0, 0);
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    display: block;
+    position: absolute;
+    width: 32em;
+    border-radius: 6px;
+    left: 0;
+    right: 0;
+    margin: 4px auto 0 auto;
 }
 
 #browser-controls {

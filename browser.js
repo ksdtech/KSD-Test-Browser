@@ -2,6 +2,7 @@ var browser = (function(configModule, tabsModule) {
   var dce = function(str) { return document.createElement(str); };
 
   var Browser = function(
+    appTitle,
     controlsContainer,
     back,
     forward,
@@ -11,6 +12,7 @@ var browser = (function(configModule, tabsModule) {
     tabContainer,
     contentContainer,
     newTabElement) {
+    this.appTitle = appTitle;
     this.controlsContainer = controlsContainer;
     this.back = back;
     this.forward = forward;
@@ -93,6 +95,9 @@ var browser = (function(configModule, tabsModule) {
           console.warn('Warning: Message from guest contains no data');
         }
       });
+
+      console.log(configModule.appTitle);
+      browser.appTitle.innerHTML = configModule.appTitle;
 
       var webview = dce('webview');
       var tab = browser.tabs.append(webview);
