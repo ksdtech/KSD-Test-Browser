@@ -1,4 +1,4 @@
-var tabs = (function(popupModule) {
+var tabs = (function() {
   var dce = function(str) { return document.createElement(str); };
 
   var TabList = function(name, browser, tabContainer, contentContainer, newTabElement) {
@@ -157,7 +157,7 @@ var tabs = (function(popupModule) {
     this.label = dce('p');
     this.closeLink = dce('a');
     this.webviewContainer = dce('div');
-    this.popupConfirmBoxList = new popupModule.PopupConfirmBoxList(dce('ul'));
+    // this.popupConfirmBoxList = new popupModule.PopupConfirmBoxList(dce('ul'));
     this.webview = webview;
     this.scriptInjectionAttempted = false;
 
@@ -216,7 +216,7 @@ var tabs = (function(popupModule) {
           function(e) { return tab.doNewTab(e); });
     }(this));
 
-    this.webviewContainer.appendChild(this.popupConfirmBoxList.getListElement());
+    // this.webviewContainer.appendChild(this.popupConfirmBoxList.getListElement());
     this.webviewContainer.appendChild(this.webview);
   };
 
@@ -327,4 +327,4 @@ var tabs = (function(popupModule) {
     'TabList': TabList,
     'Tab': Tab
   };
-}(popup));
+}());
