@@ -96,7 +96,6 @@ var browser = (function(configModule, tabsModule) {
         }
       });
 
-      console.log(configModule.appTitle);
       browser.appTitle.innerHTML = configModule.appTitle;
 
       var webview = dce('webview');

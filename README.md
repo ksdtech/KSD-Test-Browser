@@ -18,6 +18,16 @@ Otherwise, the app should behave like an ordinary tabbed browser. When actions i
 webview request a new tab or window, the browser will respond by opening a new tab.
 
 
+## Test Chooser Page
+
+The test browser is configured to load a curated list of tests at startup, when a new tab 
+is opened, and when the **Return to Test Chooser** button is clicked. This list is located 
+at [http://ksdtech.github.io/KSD-Test-Browser/][http://ksdtech.github.io/KSD-Test-Browser/], 
+which is a github hosted page. 
+
+This page resides in the gh-pages branch of this repository, and can be edited there.
+
+
 ## Other Features
 
 * Shortcut keys: `Ctrl + [1-9]` (select tab)
@@ -39,7 +49,10 @@ webview request a new tab or window, the browser will respond by opening a new t
 Here are the instructions for publishing the app to the Chrome Web Store:
 * [Publish in the Chrome Web Store](https://developer.chrome.com/webstore/publish)
 
-In a nutshell, you zip up the project directory (KSD-Test-Browser), then go to the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/developer/dashboard/), click Edit for the appropriate project, then Uploaded Updated Package. Finally, remember to click Publish Changes.
+In a nutshell, you zip up the project directory (KSD-Test-Browser), then go to the 
+[Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/developer/dashboard/), 
+click Edit for the appropriate project, then Uploaded Updated Package. Finally, 
+remember to click Publish Changes.
 
 Visibility options should be set to Unlisted.
 
