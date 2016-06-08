@@ -77,9 +77,14 @@ var browser = (function(configModule, tabsModule) {
         }
       );
 
-      browser.newTabElement.addEventListener('click', function(e) { 
-        return browser.doNewTab(e); 
-      });
+      if (configModule.hideNewTabButton) {
+        // Hide the New Tab button.
+        browser.newTabElement.className += browser.newTabElement.className ? ' hidden-controls' : 'hidden-controls';
+      } else {
+        browser.newTabElement.addEventListener('click', function(e) { 
+          return browser.doNewTab(e); 
+        });
+      }
 
       window.addEventListener('message', function(e) {
         if (e.data) {

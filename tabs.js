@@ -75,6 +75,8 @@ var tabs = (function(popupModule) {
     this.tabContainer.insertBefore(tab.labelContainer, this.newTabElement);
     this.contentContainer.appendChild(tab.webviewContainer);
 
+    this.showOrHideTabCloser();
+
     return tab;
   };
 
@@ -119,9 +121,20 @@ var tabs = (function(popupModule) {
         this.selected = this.selected - 1;
       }
 
+      this.showOrHideTabCloser();
+
       return tab;
     } else {
       return null;
+    }
+  };
+
+  TabList.prototype.showOrHideTabCloser = function() {
+    // If there is only one tab, hide the tab closing button.
+    if (this.list.length == 1) {
+      this.list[0].closeLink.className = 'hidden-controls';
+    } else {
+      this.list[0].closeLink.className = '';
     }
   };
 
@@ -163,7 +176,11 @@ var tabs = (function(popupModule) {
     this.setLabel('Loading...');
 
     closeLink.href = '#close-' + name;
-    closeLink.innerText = 'X';
+    // This is the html entity for 'MULTIPLICATION X'. 
+    // See https://en.wikipedia.org/wiki/X_mark for other options.
+    // If not using an html entity, use innerText instead.
+    closeLink.innerHTML = '&#x2715;';
+    
 
     labelContainer.appendChild(label);
     labelContainer.appendChild(closeLink);

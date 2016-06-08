@@ -7,5 +7,6 @@ var config = {
     'urlSpanClass': 'popup-url',
     'acceptLinkClass': 'popup-allow',
     'denyLinkClass': 'popup-deny'
-  }
+  },
+  'hideNewTabButton': false
 };
