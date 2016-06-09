@@ -157,7 +157,6 @@ var tabs = (function() {
     this.label = dce('p');
     this.closeLink = dce('a');
     this.webviewContainer = dce('div');
-    // this.popupConfirmBoxList = new popupModule.PopupConfirmBoxList(dce('ul'));
     this.webview = webview;
     this.scriptInjectionAttempted = false;
 
@@ -216,7 +215,6 @@ var tabs = (function() {
           function(e) { return tab.doNewTab(e); });
     }(this));
 
-    // this.webviewContainer.appendChild(this.popupConfirmBoxList.getListElement());
     this.webviewContainer.appendChild(this.webview);
   };
 

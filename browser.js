@@ -1,4 +1,4 @@
-var browser = (function(configModule, tabsModule, popupsModule) {
+var browser = (function(configModule, tabsModule) {
   var dce = function(str) { return document.createElement(str); };
 
   var Browser = function(
@@ -28,7 +28,6 @@ var browser = (function(configModule, tabsModule, popupsModule) {
         tabContainer,
         contentContainer,
         newTabElement);
-    this.popups = popupsModule;
 
     this.init();
   };
@@ -182,4 +181,4 @@ var browser = (function(configModule, tabsModule, popupsModule) {
   };
 
   return {'Browser': Browser};
-})(config, tabs, popup);
+})(config, tabs);
