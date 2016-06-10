@@ -46,7 +46,10 @@ div {
 
 #tab-controls {
   padding: 3px 3px 0px 3px;
+  /* High-Contrast International Orange Stripes. */
   background: repeating-linear-gradient( 45deg, #ff6600, #ff6600 10px, #FF7F2A 10px, #FF7F2A 20px );
+  /* Slightly More Pleasant but Lower Contrast Yellow Stripes. */
+  /*background: repeating-linear-gradient( 45deg, #FFF559, #FFF559 10px, #ECDE00 10px, #ECDE00 20px ); */
 }
 
 #tab-controls > button {
